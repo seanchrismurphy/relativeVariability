@@ -1,11 +1,11 @@
 Package: relativeVariability
 Type: Package
 Title: Relative Variability
-Version: 1.0
-Date: 2016-03-20
-Author: Merijn Mestdagh
-Maintainer: Merijn Mestdagh <merijn.mestdagh@ppw.kuleuven.be>
-Description: A package to compute relative variability indices. 
+Version: 1.1
+Date: 2016-01-23
+Authors: Merijn Mestdagh, Sean Murphy
+Maintainer: Sean Murphy <seanchrismurphy@gmail.com>
+Description: A package to compute relative variability indices. Originally published accompanying this paper (https://www.ncbi.nlm.nih.gov/pubmed/29648843) by Merijn Mestdagh. This version contains updates and fixes contributed by Sean Murphy.
 License: What license is it under?
 NeedsCompilation: no
-Packaged: 2017-03-20 21:03:55 UTC; u0084978
+Packaged: 2018-19-11 

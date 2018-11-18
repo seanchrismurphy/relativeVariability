@@ -2,35 +2,26 @@ relativeMSSD <-
 function(X,MIN,MAX)  {
   # Here is the return arguments list return(list(rv=rv,mv=mv)) 
   
-  idxNoNan <- which( is.nan(X) == 0 ) 
+  # So as not to break further stuff, update this expression to handle not just NaNs but also NA and Inf. 
+  idxNoNan <- which(!is.nan(X) & !is.na(X) & is.finite(X)) 
   
   M <- mean(X[idxNoNan])
   v <- MSSD(X) 
   checkInput(X[idxNoNan],MIN,MAX) 
   
-  addTemp <- 0 
-  nPartAdd <- 1 
-  nParts<-c()
-  for (i in (1:(length(X)))) { 
-    if (is.nan(X[i]) == 0)  { 
-      addTemp <- addTemp + 1 
-    }
-    else if (addTemp > 0)  { 
-        nParts[nPartAdd] <- addTemp 
-        nPartAdd <- nPartAdd + 1 
-        addTemp <- 0 
-    } 
-  } 
+  # Add handling for is all values are NA
+  if (is.na(M)) {
+    checkOutput(M, MIN, MAX)
+    return(NA)
+  }
   
-  if (addTemp > 0)  { 
-    nParts[nPartAdd] <- addTemp 
-  } 
-  
+# Again remove loop and use builtin.
+  nParts <- sum(!is.na(X))
 #   print(X)
 #   print(nParts)
   mv <- maximumMSSD(M,MIN,MAX,nParts);#compute the maximum possible standard deviation given the mean 
   
-  if (mv != 0)  { 
+  if (mv != 0 & !is.na(mv))  { 
     rv <- v/mv;#compute the relative mssd 
   } else { 
     rv <- NaN 
@@ -38,4 +29,5 @@ function(X,MIN,MAX)  {
   } 
   
   relativeMSSD<-rv
+  return(relativeMSSD)
 }

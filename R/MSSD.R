@@ -1,16 +1,15 @@
 MSSD <-
 function(X)  {
-    add <- 0 
-  total <- 0 
-  for (i in (1:(length(X)-1))) { 
-                              if (is.nan(X[i]) == 0 && is.nan( X[i + 1] ) == 0)  { 
-                                total <- total + (X[i]-X[i + 1])^2 
-                                add <- add + 1 
-                              } 
-  } 
   
-  total <- total/add
-  # For robustness c() added to divide, Assume you divide by a scalar, not matrix 
   
-  MSSD<-total
+  # Remove inefficient loop and instead use the built in, vectorised diff function, which takes the successive differences. 
+  differences <- diff(X)
+  differences <- differences[!is.na(differences)]
+  
+  differences <- differences ^ 2
+  
+  MSSD <- mean(differences)
+  
+  # Add a return statement so we actually get back the value we're looking for without having to assign it. 
+  return(MSSD)
 }
